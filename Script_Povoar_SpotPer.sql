@@ -1,0 +1,143 @@
+-- Script de povoamento
+-- ToDo: Descrição melhor se quiser, fiquei com preguiça :P
+
+-- Gravadora
+INSERT INTO gravadora VALUES (0, 'Grav_Teste', 'Endr_Teste', '+55 (85)94002-8922', 'www.endrhomepageteste.com.br');
+INSERT INTO gravadora VALUES (1, 'Hellcat Records', 'Boston, Massachusetts', '555 555 5555', 'www.hellcatrecords.com');
+INSERT INTO gravadora VALUES (2, 'Fox Music', 'Great Victoria Street, Belfast', '421 094 2960', 'www.foxmusic.com');
+INSERT INTO gravadora VALUES (3, 'Som Livre', 'Rio de Janeiro', '510 602 8521', 'www.somlivre.com.br');
+INSERT INTO gravadora VALUES (4, 'Constelation Records', 'Adelaide, Australia', '841 270 9620', 'www.constelation.com.br');
+INSERT INTO gravadora VALUES (5, 'Classic Records', 'Berlim, Alemanha', '000 000 0001', 'www.classicrecords.com.br');
+
+--SELECT * FROM gravadora
+
+-- Interprete
+INSERT INTO interprete VALUES (0, 'Interprete_Teste', 'Tipo_Teste');
+INSERT INTO interprete VALUES (1, 'Geese', 'Banda');
+INSERT INTO interprete VALUES (2, 'Layne Staley', 'Tenor');
+INSERT INTO interprete VALUES (3, 'Chico Buarque e Milton Nascimento', 'Dupla');
+INSERT INTO interprete VALUES (4, 'Djavan', 'Tenor');
+INSERT INTO interprete VALUES (5, 'Evanescence', 'Banda');
+INSERT INTO interprete VALUES (6, 'Cazuza', 'Barítono');
+INSERT INTO interprete VALUES (7, 'Orquestra Sinfônica da UFC', 'Orquestra');
+
+--SELECT * FROM interprete
+
+-- Periodo Musical
+INSERT INTO periodo_musical VALUES (0, 'Descrição Do periodo Teste', DATE '01-01-2000', DATE '31-12-2000');
+INSERT INTO periodo_musical VALUES (1, 'Descrição Do periodo Barroco', DATE '20-10-1250', DATE '11-09-1700');
+INSERT INTO periodo_musical VALUES (2, 'Descrição Do periodo Moderno', DATE '23-04-1960', DATE '25-01-2026');
+INSERT INTO periodo_musical VALUES (3, 'Descrição Do periodo Idade Média', DATE '01-04-700', DATE '07-09-1300');
+INSERT INTO periodo_musical VALUES (4, 'Descrição Do periodo Clássico', DATE '08-02-1605', DATE '03-11-1850');
+INSERT INTO periodo_musical VALUES (5, 'Descrição Do periodo Futuro', DATE '23-07-17776', DATE '25-12-20020');
+
+--SELECT * FROM periodo_musical
+
+-- Compositor
+INSERT INTO compositor VALUES (0, 'Compositor_Teste', 'Local_Nasc_Teste', DATE '01-01-2000', NULL, 0);
+INSERT INTO compositor VALUES (1, 'Cameron Winter', 'Brooklyn, NY', DATE '04-03-2002', NULL, 2);
+INSERT INTO compositor VALUES (2, 'Tom Jobin', 'Rio de Janeiro', DATE '25-01-1927', DATE '08-12-1994', 2);
+INSERT INTO compositor VALUES (3, 'Mozart', 'Salzburgo', DATE '27-01-1756', DATE '05-12-1791', 4);
+INSERT INTO compositor VALUES (4, 'Bach', 'Eisenach', DATE '31-03-1685', DATE '28-07-1750', 1);
+INSERT INTO compositor VALUES (5, 'Beethoven', 'Bona', DATE '17-12-1770', DATE '26-03-1827', 1);
+INSERT INTO compositor VALUES (6, 'Paul McCartney', 'Liverpool', DATE '18-06-1942', NULL, 2);
+INSERT INTO compositor VALUES (7, 'Cazuza', 'Rio de Janeiro', DATE '04-04-1958', DATE '07-07-1990', 2);
+
+--SELECT * FROM Compositor
+
+-- Album
+INSERT INTO album VALUES (0, 'Descrição do album teste', 0, 0.0, DATE '01-01-2000', DATE '01-01-2025');
+INSERT INTO album VALUES (1, 'Descrição do album MPB', 3, 150.25, DATE '23-09-1991', DATE '08-07-2007');
+INSERT INTO album VALUES (2, 'Descrição do album Clássico', 5, 300.0, DATE '06-07-1670', DATE '08-09-2016');
+INSERT INTO album VALUES (3, 'Descrição do album Geese', 1, 250.5, DATE '18-04-2025', DATE '11-09-2025');
+INSERT INTO album VALUES (4, 'Descrição do album Raro do Beatles', 4, 5000.99, DATE '28-02-1971', DATE '05-04-2022');
+
+--SELECT * FROM album 
+
+-- Meio Físico
+INSERT INTO meio_fisico VALUES (0, 0, 'CD');
+INSERT INTO meio_fisico VALUES (1, 2, 'Vinil');
+INSERT INTO meio_fisico VALUES (2, 3, 'Download');
+INSERT INTO meio_fisico VALUES (3, 3, 'CD');
+INSERT INTO meio_fisico VALUES (4, 4, 'Vinil');
+INSERT INTO meio_fisico VALUES (5, 1, 'CD');
+
+--SELECT * FROM meio_fisico
+
+-- Playlist
+INSERT INTO playlist VALUES (0, 'Playlist_Teste', DATE '01-01-2000', 90);
+INSERT INTO playlist VALUES (1, 'Playlist do Italo', DATE '16-06-2023', 462);
+INSERT INTO playlist VALUES (2, 'Playlist do Eric', DATE '30-09-2016', 250);
+
+--SELECT * FROM playlist
+
+-- Tipo de Composição
+-- Faltou criatividade
+INSERT INTO tipo_composicao VALUES (0, 'Descrição Sinfonia');
+INSERT INTO tipo_composicao VALUES (1, 'Descrição Concerto');
+INSERT INTO tipo_composicao VALUES (2, 'Descrição Sonata');
+INSERT INTO tipo_composicao VALUES (3, 'Descrição Outros');
+
+--SELECT * FROM tipo_composicao
+
+-- Faixa
+-- Tou desconsiderando pos_album por enquanto, discutir isso depois, junto com o bgl da chave primaria
+INSERT INTO faixa VALUES (0, 0, 0, 'Descrição da faixa Teste', 'ADD', 3);
+INSERT INTO faixa VALUES (1, 0, 1, 'Descrição da faixa Clássica01', NULL, 0);
+INSERT INTO faixa VALUES (2, 0, 1, 'Descrição da faixa Clássica02', NULL, 2);
+INSERT INTO faixa VALUES (3, 0, 2, 'Descrição da faixa Geese01', NULL, 3);
+INSERT INTO faixa VALUES (4, 0, 3, 'Descrição da faixa Geese02', 'DDD', 3);
+INSERT INTO faixa VALUES (5, 0, 3, 'Descrição da faixa Geese03', 'DDD', 3);
+INSERT INTO faixa VALUES (6, 0, 4, 'Descrição da faixa Beatles01', NULL, 3);
+INSERT INTO faixa VALUES (7, 0, 4, 'Descrição da faixa Beatles02', NULL, 3);
+INSERT INTO faixa VALUES (8, 0, 5, 'Descrição da faixa MPB01', 'ADD', 3);
+INSERT INTO faixa VALUES (9, 0, 5, 'Descrição da faixa MPB02', 'DDD', 3);
+
+--SELECT * FROM faixa
+
+-- Playlist Contem
+-- Dá pra inicializar com ult_data_tocada e numero tocado diferente se quiser
+INSERT INTO playlist_contem VALUES (0, 0, 0, NULL, 0);
+INSERT INTO playlist_contem VALUES (1, 1, 3, NULL, 0);
+INSERT INTO playlist_contem VALUES (2, 1, 4, NULL, 0);
+INSERT INTO playlist_contem VALUES (3, 1, 5, NULL, 0);
+INSERT INTO playlist_contem VALUES (4, 1, 9, NULL, 0);
+INSERT INTO playlist_contem VALUES (5, 2, 8, NULL, 0);
+INSERT INTO playlist_contem VALUES (6, 2, 9, NULL, 0);
+INSERT INTO playlist_contem VALUES (7, 2, 1, NULL, 0);
+INSERT INTO playlist_contem VALUES (8, 2, 2, NULL, 0);
+INSERT INTO playlist_contem VALUES (9, 2, 6, NULL, 0);
+
+--SELECT * FROM playlist_contem
+
+-- Composição
+INSERT INTO composicao VALUES (0, 0, 0);
+INSERT INTO composicao VALUES (1, 3, 1);
+INSERT INTO composicao VALUES (2, 3, 2);
+INSERT INTO composicao VALUES (3, 4, 1);
+INSERT INTO composicao VALUES (4, 6, 6);
+INSERT INTO composicao VALUES (5, 6, 7);
+INSERT INTO composicao VALUES (6, 2, 8);
+INSERT INTO composicao VALUES (7, 2, 9);
+INSERT INTO composicao VALUES (8, 7, 9);
+INSERT INTO composicao VALUES (9, 1, 4);
+INSERT INTO composicao VALUES (10, 1, 5);
+INSERT INTO composicao VALUES (11, 1, 6);
+
+--SELECT * FROM composicao
+
+-- Interpretação
+INSERT INTO interpretacao VALUES (0, 0, 0);
+INSERT INTO interpretacao VALUES (1, 7, 1);
+INSERT INTO interpretacao VALUES (2, 7, 2);
+INSERT INTO interpretacao VALUES (3, 1, 3);
+INSERT INTO interpretacao VALUES (4, 1, 4);
+INSERT INTO interpretacao VALUES (5, 1, 5);
+INSERT INTO interpretacao VALUES (6, 5, 6); -- O Evanescence tá tocando beatles, talvez isso seja confuso nos testes
+INSERT INTO interpretacao VALUES (7, 5, 7);
+INSERT INTO interpretacao VALUES (8, 3, 8);
+INSERT INTO interpretacao VALUES (9, 4, 8);
+INSERT INTO interpretacao VALUES (10, 3, 9);
+INSERT INTO interpretacao VALUES (11, 6, 9);
+
+--SELECT * FROM interpretacao

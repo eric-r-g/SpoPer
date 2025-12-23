@@ -1,0 +1,13 @@
+-- Limpar entradas
+DELETE FROM interpretacao;
+DELETE FROM composicao;
+DELETE FROM playlist_contem;
+DELETE FROM faixa;
+DELETE FROM tipo_composicao;
+DELETE FROM playlist;
+DELETE FROM meio_fisico;
+DELETE FROM album;
+DELETE FROM compositor;
+DELETE FROM periodo_musical;
+DELETE FROM interprete;
+DELETE FROM gravadora;
