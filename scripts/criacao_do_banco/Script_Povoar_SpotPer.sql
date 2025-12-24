@@ -2,6 +2,7 @@
 -- ToDo: Descrição melhor se quiser, fiquei com preguiça :P
 
 -- Gravadora
+--...........................(cod, nome, endereco, telefone, endr_homepage)
 INSERT INTO gravadora VALUES (0, 'Grav_Teste', 'Endr_Teste', '+55 (85)94002-8922', 'www.endrhomepageteste.com.br');
 INSERT INTO gravadora VALUES (1, 'Hellcat Records', 'Boston, Massachusetts', '555 555 5555', 'www.hellcatrecords.com');
 INSERT INTO gravadora VALUES (2, 'Fox Music', 'Great Victoria Street, Belfast', '421 094 2960', 'www.foxmusic.com');
@@ -12,6 +13,7 @@ INSERT INTO gravadora VALUES (5, 'Classic Records', 'Berlim, Alemanha', '000 000
 --SELECT * FROM gravadora
 
 -- Interprete
+--...........................(cod, nome, tipo)
 INSERT INTO interprete VALUES (0, 'Interprete_Teste', 'Tipo_Teste');
 INSERT INTO interprete VALUES (1, 'Geese', 'Banda');
 INSERT INTO interprete VALUES (2, 'Layne Staley', 'Tenor');
@@ -24,6 +26,7 @@ INSERT INTO interprete VALUES (7, 'Orquestra Sinfônica da UFC', 'Orquestra');
 --SELECT * FROM interprete
 
 -- Periodo Musical
+--...........................(cod, descricao, inicio_intervalo, fim_intervalo)
 INSERT INTO periodo_musical VALUES (0, 'Descrição Do periodo Teste', DATE '01-01-2000', DATE '31-12-2000');
 INSERT INTO periodo_musical VALUES (1, 'Descrição Do periodo Barroco', DATE '20-10-1250', DATE '11-09-1700');
 INSERT INTO periodo_musical VALUES (2, 'Descrição Do periodo Moderno', DATE '23-04-1960', DATE '25-01-2026');
@@ -34,6 +37,7 @@ INSERT INTO periodo_musical VALUES (5, 'Descrição Do periodo Futuro', DATE '23
 --SELECT * FROM periodo_musical
 
 -- Compositor
+--...........................(cod, nome, local_nasc, data_nasc, data_morte, periodo_music)
 INSERT INTO compositor VALUES (0, 'Compositor_Teste', 'Local_Nasc_Teste', DATE '01-01-2000', NULL, 0);
 INSERT INTO compositor VALUES (1, 'Cameron Winter', 'Brooklyn, NY', DATE '04-03-2002', NULL, 2);
 INSERT INTO compositor VALUES (2, 'Tom Jobin', 'Rio de Janeiro', DATE '25-01-1927', DATE '08-12-1994', 2);
@@ -46,6 +50,7 @@ INSERT INTO compositor VALUES (7, 'Cazuza', 'Rio de Janeiro', DATE '04-04-1958',
 --SELECT * FROM Compositor
 
 -- Album
+--...........................(cod, descricao, gravadora, preco_cmpr, data_cmpr, data_grav)
 INSERT INTO album VALUES (0, 'Descrição do album teste', 0, 0.0, DATE '01-01-2000', DATE '01-01-2025');
 INSERT INTO album VALUES (1, 'Descrição do album MPB', 3, 150.25, DATE '23-09-1991', DATE '08-07-2007');
 INSERT INTO album VALUES (2, 'Descrição do album Clássico', 5, 300.0, DATE '06-07-1670', DATE '08-09-2016');
@@ -55,6 +60,7 @@ INSERT INTO album VALUES (4, 'Descrição do album Raro do Beatles', 4, 5000.99,
 --SELECT * FROM album 
 
 -- Meio Físico
+--...........................(cod, album, tipo)
 INSERT INTO meio_fisico VALUES (0, 0, 'CD');
 INSERT INTO meio_fisico VALUES (1, 2, 'Vinil');
 INSERT INTO meio_fisico VALUES (2, 3, 'Download');
@@ -65,6 +71,7 @@ INSERT INTO meio_fisico VALUES (5, 1, 'CD');
 --SELECT * FROM meio_fisico
 
 -- Playlist
+--...........................(cod, nome, data_criacao, tempo_total)
 INSERT INTO playlist VALUES (0, 'Playlist_Teste', DATE '01-01-2000', 90);
 INSERT INTO playlist VALUES (1, 'Playlist do Italo', DATE '16-06-2023', 462);
 INSERT INTO playlist VALUES (2, 'Playlist do Eric', DATE '30-09-2016', 250);
@@ -73,6 +80,7 @@ INSERT INTO playlist VALUES (2, 'Playlist do Eric', DATE '30-09-2016', 250);
 
 -- Tipo de Composição
 -- Faltou criatividade
+--...........................(cod, descricao_comp)
 INSERT INTO tipo_composicao VALUES (0, 'Descrição Sinfonia');
 INSERT INTO tipo_composicao VALUES (1, 'Descrição Concerto');
 INSERT INTO tipo_composicao VALUES (2, 'Descrição Sonata');
@@ -82,6 +90,7 @@ INSERT INTO tipo_composicao VALUES (3, 'Descrição Outros');
 
 -- Faixa
 -- Tou desconsiderando pos_album por enquanto, discutir isso depois, junto com o bgl da chave primaria
+--...........................(cod, pos_album, disco, descricao, tipo_grav, tipo_compr)
 INSERT INTO faixa VALUES (0, 0, 0, 'Descrição da faixa Teste', 'ADD', 3);
 INSERT INTO faixa VALUES (1, 0, 1, 'Descrição da faixa Clássica01', NULL, 0);
 INSERT INTO faixa VALUES (2, 0, 1, 'Descrição da faixa Clássica02', NULL, 2);
@@ -97,6 +106,7 @@ INSERT INTO faixa VALUES (9, 0, 5, 'Descrição da faixa MPB02', 'DDD', 3);
 
 -- Playlist Contem
 -- Dá pra inicializar com ult_data_tocada e numero tocado diferente se quiser
+--...........................(cod, playlist, faixa, ult_data_tocada, numero_tocada)
 INSERT INTO playlist_contem VALUES (0, 0, 0, NULL, 0);
 INSERT INTO playlist_contem VALUES (1, 1, 3, NULL, 0);
 INSERT INTO playlist_contem VALUES (2, 1, 4, NULL, 0);
@@ -111,6 +121,7 @@ INSERT INTO playlist_contem VALUES (9, 2, 6, NULL, 0);
 --SELECT * FROM playlist_contem
 
 -- Composição
+--...........................(cod, compositor, faixa)
 INSERT INTO composicao VALUES (0, 0, 0);
 INSERT INTO composicao VALUES (1, 3, 1);
 INSERT INTO composicao VALUES (2, 3, 2);
@@ -127,6 +138,7 @@ INSERT INTO composicao VALUES (11, 1, 6);
 --SELECT * FROM composicao
 
 -- Interpretação
+--...........................(cod, interprete, faixa)
 INSERT INTO interpretacao VALUES (0, 0, 0);
 INSERT INTO interpretacao VALUES (1, 7, 1);
 INSERT INTO interpretacao VALUES (2, 7, 2);

@@ -6,17 +6,16 @@ CREATE TABLE gravadora (
 	endr_homepage varchar(256) NOT NULL
 );
 
--- "Um álbum, com faixas de músicas do período barroco, só pode ser inserido no
--- banco de dados, caso o tipo de gravação seja DDD."
--- "Um álbum não pode ter mais que 64 faixas (músicas)."
--- "No caso de remoção de um álbum do banco de dados, todas as suas faixas
--- devem ser removidas. Lembre-se que faixas podem apresentar, por sua vez,
--- outros relacionamentos"
--- "O preço de compra de um álbum não dever ser superior a três vezes a média
--- do preço de compra de álbuns, com todas as faixas com tipo de gravação
--- DDD."
--- Tem que ver se tem como colocar um check pra quando o tipo do disco for cd, o tipo de gravação
--- ser add ou ddd, e quando não for, ser nulo.
+/* 	"Um álbum, com faixas de músicas do período barroco, só pode ser inserido no
+	banco de dados, caso o tipo de gravação seja DDD."
+	"No caso de remoção de um álbum do banco de dados, todas as suas faixas
+	devem ser removidas. Lembre-se que faixas podem apresentar, por sua vez,
+	outros relacionamentos"
+	"O preço de compra de um álbum não dever ser superior a três vezes a média
+	do preço de compra de álbuns, com todas as faixas com tipo de gravação
+	DDD."
+	Tem que ver se tem como colocar um check pra quando o tipo do disco for cd, o tipo de gravação
+	ser add ou ddd, e quando não for, ser nulo. */
 CREATE TABLE album (
 	cod int PRIMARY KEY,
 	descricao varchar(256) NOT NULL,
@@ -27,12 +26,13 @@ CREATE TABLE album (
 	
 	CHECK(data_grav > date '01-01-2000')
 
-	-- Segunda restrição
-	--SELECT count(*) 
-	--FROM faixa f, meio_fisico m, album a
-	--WHERE m.album=a.cod and f.disco=m.cod
-	--GROUP BY a.cod
-	--CHECK(select count(*) from faixa f, meio_fisico m where m.)
+	-- "Um álbum não pode ter mais que 64 faixas (músicas)."
+	/*CHECK( -- Não dá pra fazer com o check
+		(SELECT count(*)
+		FROM faixa f, meio_fisico m
+		WHERE m.album=cod and f.disco=m.cod)
+		<= 64
+	)*/
 );
 
 CREATE TABLE meio_fisico (
