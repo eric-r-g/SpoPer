@@ -1,5 +1,13 @@
 package interfaceGrafica.base.sideBar;
 
-public class SideBarController {
+import interfaceGrafica.base.JanelaBaseController;
 
+public class SideBarController {
+	JanelaBaseController janelaBaseController;
+	
+	public void setJBController(JanelaBaseController jbc) {
+		janelaBaseController = jbc;
+	}
+	
+	// ToDo: criar objetos de troca e acompla-los com o janelaBase
 }

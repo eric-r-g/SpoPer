@@ -7,6 +7,8 @@ module spotPer {
     opens interfaceGrafica.base to javafx.fxml;
     opens interfaceGrafica.base.header to javafx.fxml;
     opens interfaceGrafica.base.sideBar to javafx.fxml;
+    opens interfaceGrafica.modelos to javafx.fxml;
+
 
     exports interfaceGrafica;
 }
