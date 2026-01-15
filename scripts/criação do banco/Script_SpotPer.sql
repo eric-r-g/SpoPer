@@ -19,6 +19,7 @@ CREATE TABLE gravadora (
 -- ser add ou ddd, e quando não for, ser nulo.
 CREATE TABLE album (
 	cod int PRIMARY KEY,
+    nome varchar(64) NOT NULL,
 	descricao varchar(256) NOT NULL,
 	gravadora int REFERENCES gravadora (cod),
 	preco_cmpr real NOT NULL, -- Dar uma pesquisada se esse é o melhor tipo mesmo
@@ -49,6 +50,7 @@ CREATE TABLE interprete (
 
 CREATE TABLE periodo_musical (
 	cod int PRIMARY KEY,
+    nome varchar(64) NOT NULL,
 	descricao varchar(256) NOT NULL,
 	inicio_intervalo date NOT NULL,
 	fim_intervalo date NOT NULL
@@ -70,6 +72,7 @@ CREATE TABLE tipo_composicao (
 
 CREATE TABLE faixa (
 	cod int PRIMARY KEY,
+    nome varchar(64) NOT NULL,
 	pos_album int NOT NULL,
 	disco int REFERENCES meio_fisico (cod), -- Talvez mudar o nome dessa coluna
 	descricao varchar(256) NOT NULL,
