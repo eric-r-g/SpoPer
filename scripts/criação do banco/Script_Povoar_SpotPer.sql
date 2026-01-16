@@ -136,6 +136,8 @@ INSERT INTO composicao VALUES (8, 7, 9);
 INSERT INTO composicao VALUES (9, 1, 4);
 INSERT INTO composicao VALUES (10, 1, 5);
 INSERT INTO composicao VALUES (11, 1, 6);
+INSERT INTO composicao VALUES (12, 8, 1);
+INSERT INTO composicao VALUES (13, 8, 2);
 
 --SELECT * FROM composicao
 
