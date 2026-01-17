@@ -16,18 +16,7 @@ CREATE TABLE album (
 	data_grav date NOT NULL,
 	
 	CHECK(data_grav > date '01-01-2000')
-<<<<<<< HEAD:scripts/criação do banco/Script_SpotPer.sql
-
-	-- Segunda restrição
-	--SELECT count(*) 
-	--FROM faixa f, meio_fisico m, album a
-	--WHERE m.album=a.cod and f.disco=m.cod
-	--GROUP BY a.cod
-	--CHECK(select count(*) from faixa f, meio_fisico m where m.)
 ) TABLESPACE ts_one;
-=======
-);
->>>>>>> f36aec813f70edd6696a24ace8344cdec8b97472:scripts/criacao_banco/Script_SpotPer.sql
 
 CREATE TABLE meio_fisico (
 	cod int PRIMARY KEY,
@@ -71,39 +60,7 @@ CREATE TABLE faixa (
 	descricao varchar(256) NOT NULL,
 	tipo_grav varchar(3),
 	tipo_comp int REFERENCES tipo_composicao (cod)
-<<<<<<< HEAD:scripts/criação do banco/Script_SpotPer.sql
-
-	-- "Defina um índice primário para a tabela de Faixas sobre o atributo código do
-	-- álbum. Defina um índice secundário para a mesma tabela sobre o atributo tipo de
-	-- composição. Os dois com taxas de preenchimento máxima"
-	--PRIMARY KEY (cod, pos_album, disco)
 ) TABLESPACE ts_two;
-=======
-);
->>>>>>> f36aec813f70edd6696a24ace8344cdec8b97472:scripts/criacao_banco/Script_SpotPer.sql
-
--- Tabelas auxiliares
-CREATE TABLE composicao (
-	cod int PRIMARY KEY,
-	compositor int REFERENCES compositor (cod),
-<<<<<<< HEAD:scripts/criação do banco/Script_SpotPer.sql
-	faixa int REFERENCES faixa (cod)
-) TABLESPACE ts_one;
-
-CREATE TABLE interpretacao (
-	cod int PRIMARY KEY,
-	interprete int REFERENCES interprete (cod),
-	faixa int REFERENCES faixa (cod)
-) TABLESPACE ts_one;
-=======
-	faixa int REFERENCES faixa (cod) ON DELETE CASCADE
-);
-CREATE TABLE interpretacao (
-	cod int PRIMARY KEY,
-	interprete int REFERENCES interprete (cod),
-	faixa int REFERENCES faixa (cod) ON DELETE CASCADE
-);
->>>>>>> f36aec813f70edd6696a24ace8344cdec8b97472:scripts/criacao_banco/Script_SpotPer.sql
 
 CREATE TABLE playlist (
 	cod int PRIMARY KEY,
@@ -111,6 +68,20 @@ CREATE TABLE playlist (
 	data_criacao date NOT NULL,
 	tempo_total int NOT NULL
 ) TABLESPACE ts_two;
+
+-- Tabelas auxiliares
+CREATE TABLE composicao (
+	cod int PRIMARY KEY,
+	compositor int REFERENCES compositor (cod),
+	faixa int REFERENCES faixa (cod) ON DELETE CASCADE
+) TABLESPACE ts_one;
+
+CREATE TABLE interpretacao (
+	cod int PRIMARY KEY,
+	interprete int REFERENCES interprete (cod),
+	faixa int REFERENCES faixa (cod) ON DELETE CASCADE
+) TABLESPACE ts_one;
+
 
 CREATE TABLE playlist_contem (
 	cod int PRIMARY KEY,
