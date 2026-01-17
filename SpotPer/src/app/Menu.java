@@ -2,15 +2,20 @@ package app;
 
 import java.util.Scanner;
 
+import database.Database;
+
 public class Menu {
-	private static Scanner sc = new Scanner(System.in);
-	private int op;
+	private static Scanner sc;
+	private static CriarPlaylist criar;
 	
-	public Menu(Scanner scanner) {
+	public Menu(Scanner scanner, CriarPlaylist cp) {
 		sc = scanner;
+		criar = cp;
 	}
 	
-	public void inicializarMenu() {
+	
+	public void janelaMenu() {
+		int op;
 		do {
 			System.out.println("\n=== MENU ===");
             System.out.println("1 - Criar playlist");
@@ -22,8 +27,12 @@ public class Menu {
             op = sc.nextInt();
             sc.nextLine(); 
             
-            if (op == 0) {
-            	System.out.println("Saindo...");
+            switch(op) {
+            	case 0 -> System.out.println("Saindo...");
+            	case 1 -> criar.janelaCriar();
+            	case 2 -> sc.next(); //ToDo: outra janela
+            	case 3 -> sc.next(); //ToDo: outra janela
+            	default -> System.out.println("Opção invalida, digite uma operação valida.");
             }
             
             

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
-
-
 public class Database{
     private static final String url = "jdbc:postgresql://localhost/?user=SpotPer&password=12345678";
 
