@@ -4,7 +4,7 @@ CREATE TABLE gravadora (
 	endereco varchar(256) NOT NULL,
 	telefone varchar(20) NOT NULL,
 	endr_homepage varchar(256) NOT NULL
-);
+) TABLESPACE ts_one;
 
 -- "Um álbum, com faixas de músicas do período barroco, só pode ser inserido no
 -- banco de dados, caso o tipo de gravação seja DDD."
@@ -34,19 +34,19 @@ CREATE TABLE album (
 	--WHERE m.album=a.cod and f.disco=m.cod
 	--GROUP BY a.cod
 	--CHECK(select count(*) from faixa f, meio_fisico m where m.)
-);
+) TABLESPACE ts_one;
 
 CREATE TABLE meio_fisico (
 	cod int PRIMARY KEY,
 	album int REFERENCES album(cod),
 	tipo varchar(8) NOT NULL
-);
+) TABLESPACE ts_one;
 
 CREATE TABLE interprete (
 	cod int PRIMARY KEY,
 	nome varchar(64) NOT NULL,
 	tipo varchar(64) NOT NULL
-);
+) TABLESPACE ts_one;
 
 CREATE TABLE periodo_musical (
 	cod int PRIMARY KEY,
@@ -54,7 +54,7 @@ CREATE TABLE periodo_musical (
 	descricao varchar(256) NOT NULL,
 	inicio_intervalo date NOT NULL,
 	fim_intervalo date NOT NULL
-);
+) TABLESPACE ts_one;
 
 CREATE TABLE compositor (
 	cod int PRIMARY KEY,
@@ -63,12 +63,12 @@ CREATE TABLE compositor (
 	data_nasc date NOT NULL,
 	data_morte date,
 	periodo_music int REFERENCES periodo_musical(cod)
-);
+) TABLESPACE ts_one;
 
 CREATE TABLE tipo_composicao (
 	cod int PRIMARY KEY,
 	descricao_comp varchar(256) NOT NULL
-);
+) TABLESPACE ts_one;
 
 CREATE TABLE faixa (
 	cod int PRIMARY KEY,
@@ -83,26 +83,27 @@ CREATE TABLE faixa (
 	-- álbum. Defina um índice secundário para a mesma tabela sobre o atributo tipo de
 	-- composição. Os dois com taxas de preenchimento máxima"
 	--PRIMARY KEY (cod, pos_album, disco)
-);
+) TABLESPACE ts_two;
 
 -- Tabelas auxiliares
 CREATE TABLE composicao (
 	cod int PRIMARY KEY,
 	compositor int REFERENCES compositor (cod),
 	faixa int REFERENCES faixa (cod)
-);
+) TABLESPACE ts_one;
+
 CREATE TABLE interpretacao (
 	cod int PRIMARY KEY,
 	interprete int REFERENCES interprete (cod),
 	faixa int REFERENCES faixa (cod)
-);
+) TABLESPACE ts_one;
 
 CREATE TABLE playlist (
 	cod int PRIMARY KEY,
 	nome varchar(64) NOT NULL,
 	data_criacao date NOT NULL,
 	tempo_total int NOT NULL
-);
+) TABLESPACE ts_two;
 
 CREATE TABLE playlist_contem (
 	cod int PRIMARY KEY,
@@ -110,4 +111,4 @@ CREATE TABLE playlist_contem (
 	faixa int REFERENCES faixa (cod),
 	ult_data_tocada date,
 	numero_tocada int NOT NULL DEFAULT 0
-);
+) TABLESPACE ts_two;
