@@ -18,6 +18,3 @@ having count(DISTINCT pc.playlist) >= all (
     where ct2.nome = 'Dvorack'
     group by g2.nome
 );
- 
-
-
