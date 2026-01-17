@@ -1,5 +1,6 @@
-CREATE TABLESPACE primary
-LOCATION '/dados/primary';
+--É necessário rodar cada um desse comandos de forma separada.
+CREATE TABLESPACE ts_primary
+LOCATION '/dados/primary'; --aqui é o caminho absoluto, então falta o inicio
 
 CREATE TABLESPACE ts_one
 LOCATION '/dados/tsOne';
@@ -15,4 +16,4 @@ CREATE DATABASE "SpotPer"
     LOCALE_PROVIDER = 'libc'
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False
-    TABLESPACE = primary;
+    TABLESPACE = ts_primary;

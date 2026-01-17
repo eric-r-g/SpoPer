@@ -72,14 +72,14 @@ CREATE TABLE playlist (
 -- Tabelas auxiliares
 CREATE TABLE composicao (
 	compositor int REFERENCES compositor (cod),
-	faixa int REFERENCES faixa (cod) ON DELETE CASCADE
+	faixa int REFERENCES faixa (cod) ON DELETE CASCADE,
     
 	PRIMARY KEY(compositor, faixa)
 ) TABLESPACE ts_one;
 
 CREATE TABLE interpretacao (
 	interprete int REFERENCES interprete (cod),
-	faixa int REFERENCES faixa (cod) ON DELETE CASCADE
+	faixa int REFERENCES faixa (cod) ON DELETE CASCADE,
 
 	PRIMARY KEY(interprete, faixa)
 ) TABLESPACE ts_one;
@@ -89,7 +89,7 @@ CREATE TABLE playlist_contem (
 	playlist int REFERENCES playlist (cod),
 	faixa int REFERENCES faixa (cod) ON DELETE CASCADE,
 	ult_data_tocada date,
-	numero_tocada int NOT NULL DEFAULT 0
+	numero_tocada int NOT NULL DEFAULT 0,
 
 	PRIMARY KEY(playlist, faixa)
 ) TABLESPACE ts_two;
