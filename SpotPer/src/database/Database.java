@@ -1,10 +1,16 @@
 package database;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
+
+import database.DBTypes.*;
 
 public class Database{
     private static final String url = "jdbc:postgresql://localhost/?user=SpotPer&password=12345678";
@@ -106,6 +112,7 @@ public class Database{
         }
     }
 
+    // TODO: Atualizar tempo total
     public static void inserirFaixaPlaylist(int playlist, int faixa) throws SQLException{
         String sql = """
             INSERT INTO playlist_contem VALUES (?, ?, NULL, 0);
@@ -121,6 +128,7 @@ public class Database{
         }
     }
 
+    // TODO: Atualizar tempo total
     public static void removerFaixaPlaylist(int playlist, int faixa) throws SQLException{
         String sql = """
             REMOVE FROM playlist_contem p WHERE p.playlist = ? AND p.faixa = ?;
