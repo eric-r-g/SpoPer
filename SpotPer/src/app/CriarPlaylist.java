@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -49,7 +50,10 @@ public class CriarPlaylist {
 	}
 	
 	public void incluirFaixa() {
-		//ToDo: funcao
+		ArrayList<Album> albuns = new ArrayList <Album> ();
+		
+		System.out.println("Escolha um album que deseja adicionar (digite o codigo)");
+		System.out.print("> ");
 	}
 	
 	public void removerFaixa() {
@@ -57,7 +61,7 @@ public class CriarPlaylist {
 	}
 	
 	private void alterarNome() {
-		System.out.println("Digite o novo nome da playlist");
+		System.out.println("Digite o novSo nome da playlist");
 		System.out.print("> ");
 		
 		String nome = sc.nextLine();
