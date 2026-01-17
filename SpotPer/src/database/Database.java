@@ -3,51 +3,20 @@ package database;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-record Album(
-    int cod,
-    String nome,
-    String descricao,
-    String gravadora, // o nome da gravadora, não a chave
-    float preco_cmpr,
-    LocalDate data_cmpr,
-    LocalDate data_grav
-) {}
 
-class Playlist{
-    public int cod;
-    public String nome;
-    public LocalDate data_criacao;
-    public int tempo_total;
-    private HashSet<Integer> faixas; // Dá pra criar uma classe faixas tbm
-
-    public Playlist(int cod, String nome, LocalDate data_criacao, int tempo_total, HashSet<Integer> faixas){
-        this.cod = cod;
-        this.nome = nome;
-        this.data_criacao = data_criacao;
-        this.tempo_total = tempo_total;
-        this.faixas = faixas;
-    }
-
-    public void adicionarFaixa(int faixa) throws SQLException{
-        Database.inserirFaixaPlaylist(cod, faixa);
-
-        faixas.add(faixa);
-    }
-
-    public void removerFaixa(int faixa) throws SQLException{
-        Database.removerFaixaPlaylist(cod, faixa);
-
-        faixas.remove(faixa);
-    }
-}
 
 public class Database{
     private static final String url = "jdbc:postgresql://localhost/?user=SpotPer&password=12345678";
 
+    /*
+        TODO:
+            - Diminuir a repetição de código da criação de conexão e execução de query
+            - Terminar a consulta de musicas da playlist
+            - Terminar as consultas do comentário aqui embaixo vvvvv 
+    */
     /*
     // Todas essas já tão feitas, só puxar a query do script
     Listar os álbuns com preço de compra maior que a média de preços de
@@ -63,32 +32,29 @@ public class Database{
     public static ArrayList<Album> mostrarAlbuns() throws SQLException{
         ArrayList<Album> albuns = new ArrayList<Album>();
 
-        Connection conn = DriverManager.getConnection(url);
+        String sql = """
+            SELECT a.cod, a.nome, a.descricao, g.nome, a.preco_cmpr, a.data_cmpr, a.data_grav
+            FROM album a, gravadora g
+            WHERE a.gravadora = g.cod;
+        """;
 
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery("""
-                SELECT a.cod, a.nome, a.descricao, g.nome, a.preco_cmpr, a.data_cmpr, a.data_grav
-                FROM album a, gravadora g
-                WHERE a.gravadora = g.cod;
-        """);
+        try(ManagedStatement ms = new ManagedStatement(url, sql)){
+            ResultSet rs = ms.get_resultset();
 
-        while(rs.next()){
-            albuns.add(
-                new Album(
-                    rs.getInt(0),
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getFloat(4),
-                    LocalDate.parse(rs.getString(5)),
-                    LocalDate.parse(rs.getString(6))
-                )
-            );
+            while(rs.next()){
+                albuns.add(
+                    new Album(
+                        rs.getInt(0),
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getFloat(4),
+                        LocalDate.parse(rs.getString(5)),
+                        LocalDate.parse(rs.getString(6))
+                    )
+                );
+            }
         }
-
-        rs.close();
-        st.close();
-        conn.close();
         
         return albuns;
     }
@@ -96,109 +62,100 @@ public class Database{
     public static ArrayList<Playlist> mostrarPlaylists() throws SQLException{
         ArrayList<Playlist> playlists = new ArrayList<Playlist>();
 
-        Connection conn = DriverManager.getConnection(url);
+        String sql = """
+            SELECT *
+            FROM playlist;
+        """;
 
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery("""
-                SELECT *
-                FROM playlist;
-        """);
+        try(ManagedStatement ms = new ManagedStatement(url, sql)){
+            ResultSet rs = ms.get_resultset();
 
-        while(rs.next()){
-            // Com certeza tem forma mais eficiente de fazer isso
-            HashSet<Integer> faixas = new HashSet<Integer>();
-
-            PreparedStatement pst = conn.prepareStatement("""
-                SELECT f.cod
-                FROM playlist_contem pc, faixa f
-                WHERE pc.playlist = ? AND pc.faixa = f        
-            """);
-            pst.setInt(0, rs.getInt(0));
-            ResultSet prs = pst.executeQuery();
-
-            while(prs.next()){
-                faixas.add(prs.getInt(0));
+            while(rs.next()){
+                playlists.add(
+                    new Playlist(
+                        rs.getInt(0),
+                        rs.getString(1),
+                        LocalDate.parse(rs.getString(2)),
+                        rs.getInt(3)
+                    )
+                );
             }
-
-            playlists.add(
-                new Playlist(
-                    rs.getInt(0),
-                    rs.getString(1),
-                    LocalDate.parse(rs.getString(2)),
-                    rs.getInt(3),
-                    faixas
-                )
-            );
         }
-
-        rs.close();
-        st.close();
-        conn.close();
 
         return playlists;
     }
 
+    /*public ArrayList<Faixa> mostrarFaixasPlaylist(int cod){
+        ArrayList<Faixa> faixas = new ArrayList<Faixa>();
+
+
+
+        PreparedStatement st = 
+
+        return faixas;
+    }*/
+
     public static void criarPlaylist(String nome, int cod, Set<Integer> faixas) throws SQLException{
-        Connection conn = DriverManager.getConnection(url);
-        
-        PreparedStatement stPlay = conn.prepareStatement("""
+        String sql = """
             INSERT INTO playlist VALUES (?, ?, DATE ?, ?);
-        """);
+        """;
 
-        stPlay.setInt(0, cod);
-        stPlay.setString(1, nome);
-        stPlay.setString(2, LocalDate.now().toString());
-        // Tempo total tá aleatorizado baseado na quantidade de faixas
-        stPlay.setInt(3, new Random().nextInt(10)*faixas.size());
+        try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
+            PreparedStatement pst = mps.get_preparedstatement();
 
-        stPlay.executeUpdate();
-        stPlay.close();
+            pst.setInt(0, cod);
+            pst.setString(1, nome);
+            pst.setString(2, LocalDate.now().toString());
+            // Tempo total tá aleatorizado baseado na quantidade de faixas
+            pst.setInt(3, new Random().nextInt(10)*faixas.size());
 
-        PreparedStatement stFaixa = conn.prepareStatement("""
-            INSERT INTO playlist_contem VALUES (?, ?, NULL, 0);
-        """);
-
-        for(Integer faixa : faixas){
-            stFaixa.setInt(0, cod);
-            stFaixa.setInt(1, faixa);
-
-            stFaixa.executeUpdate();
+            pst.executeUpdate();
+            pst.close();
         }
 
-        stFaixa.close();
+        sql = """
+            INSERT INTO playlist_contem VALUES (?, ?, NULL, 0);
+        """;
 
-        conn.close();
+        try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
+            PreparedStatement pst = mps.get_preparedstatement();
+
+            for(Integer faixa : faixas){
+                pst.setInt(0, cod);
+                pst.setInt(1, faixa);
+
+                pst.executeUpdate();
+            }
+        }
     }
 
     public static void inserirFaixaPlaylist(int playlist, int faixa) throws SQLException{
-        Connection conn = DriverManager.getConnection(url);
-
-        PreparedStatement st = conn.prepareStatement("""
+        String sql = """
             INSERT INTO playlist_contem VALUES (?, ?, NULL, 0);
-        """);
+        """;
 
-        st.setInt(0, playlist);
-        st.setInt(1, faixa);
+        try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
+            PreparedStatement pst = mps.get_preparedstatement();
 
-        st.executeUpdate();
-        st.close();
+            pst.setInt(0, playlist);
+            pst.setInt(1, faixa);
 
-        conn.close();
+            pst.executeUpdate();
+        }
     }
 
     public static void removerFaixaPlaylist(int playlist, int faixa) throws SQLException{
-        Connection conn = DriverManager.getConnection(url);
-
-        PreparedStatement st = conn.prepareStatement("""
+        String sql = """
             REMOVE FROM playlist_contem p WHERE p.playlist = ? AND p.faixa = ?;
-        """);
+        """;
 
-        st.setInt(0, playlist);
-        st.setInt(1, faixa);
+        try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
+            PreparedStatement pst = mps.get_preparedstatement();
+        
+            pst.setInt(0, playlist);
+            pst.setInt(1, faixa);
 
-        st.executeUpdate();
-        st.close();
-
-        conn.close();
+            pst.executeUpdate();
+        }
     }
 }
