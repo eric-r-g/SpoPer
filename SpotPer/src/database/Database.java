@@ -11,24 +11,6 @@ import java.util.Set;
 public class Database{
     private static final String url = "jdbc:postgresql://localhost/?user=SpotPer&password=12345678";
 
-    /*
-        TODO:
-            - Diminuir a repetição de código da criação de conexão e execução de query
-            - Terminar a consulta de musicas da playlist
-            - Terminar as consultas do comentário aqui embaixo vvvvv 
-    */
-    /*
-    // Todas essas já tão feitas, só puxar a query do script
-    Listar os álbuns com preço de compra maior que a média de preços de
-    compra de todos os álbuns.
-    Listar nome da gravadora com maior número de playlists que possuem
-    pelo uma faixa composta pelo compositor Dvorack.
-    Listar nome do compositor com maior número de faixas nas playlists
-    existentes.
-    Listar playlists, cujas faixas (todas) têm tipo de composição “Concerto” e
-    período “Barroco”.
-    */
-
     public static ArrayList<Album> mostrarAlbuns() throws SQLException{
         ArrayList<Album> albuns = new ArrayList<Album>();
 
@@ -42,17 +24,7 @@ public class Database{
             ResultSet rs = ms.get_resultset();
 
             while(rs.next()){
-                albuns.add(
-                    new Album(
-                        rs.getInt(0),
-                        rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getFloat(4),
-                        LocalDate.parse(rs.getString(5)),
-                        LocalDate.parse(rs.getString(6))
-                    )
-                );
+                albuns.add(new Album(rs));
             }
         }
         
@@ -71,29 +43,36 @@ public class Database{
             ResultSet rs = ms.get_resultset();
 
             while(rs.next()){
-                playlists.add(
-                    new Playlist(
-                        rs.getInt(0),
-                        rs.getString(1),
-                        LocalDate.parse(rs.getString(2)),
-                        rs.getInt(3)
-                    )
-                );
+                playlists.add(new Playlist(rs));
             }
         }
 
         return playlists;
     }
 
-    /*public ArrayList<Faixa> mostrarFaixasPlaylist(int cod){
+    public ArrayList<Faixa> mostrarFaixasPlaylist(int cod) throws SQLException{
         ArrayList<Faixa> faixas = new ArrayList<Faixa>();
 
+        // Fazer consultas diferentes pra esses atributos separados seria melhor será?
+        String sql = """
+            SELECT f.cod, f.nome, f.pos_album, a.nome, f.descricao, f.tipo_grav, tc.descricao_comp
+            FROM faixa f, playlist_contem pc, meio_fisico m, album a, tipo_composicao tc
+            WHERE f.cod = pc.faixa AND pc.playlist = ? AND f.disco = m.cod AND m.album = a.cod AND f.tipo_comp = tc.cod;
+        """;
 
+        try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
+            PreparedStatement pst = mps.get_preparedstatement();
 
-        PreparedStatement st = 
+            pst.setInt(0, cod);
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()){
+                faixas.add(new Faixa(rs));
+            }
+        }
 
         return faixas;
-    }*/
+    }
 
     public static void criarPlaylist(String nome, int cod, Set<Integer> faixas) throws SQLException{
         String sql = """
@@ -157,5 +136,55 @@ public class Database{
 
             pst.executeUpdate();
         }
+    }
+
+    public static ArrayList<Album> mostrarAlbunsPrecoMaiorMedia() throws SQLException{
+        ArrayList<Album> albuns = new ArrayList<Album>();
+
+        String sql = "SELECT * FROM mostrarAlbunsPrecoMaiorMedia;";
+        try(ManagedStatement ms = new ManagedStatement(url, sql)){
+            ResultSet rs = ms.get_resultset();
+
+            while(rs.next()){
+                albuns.add(new Album(rs));
+            }
+        }
+
+        return albuns;
+    }
+
+    public Gravadora mostrarGravMaisDvorak() throws SQLException{
+        String sql = "SELECT * FROM mostrarGravMaisDvorak";
+        try(ManagedStatement ms = new ManagedStatement(url, sql)){
+            ResultSet rs = ms.get_resultset();
+
+            if(rs.next()) new Gravadora(rs);
+            return null;
+        }
+    }
+
+    public Compositor mostrarCompMaisPlaylists() throws SQLException{
+        String sql = "SELECT * FROM mostrarCompMaisPlaylists";
+        try(ManagedStatement ms = new ManagedStatement(url, sql)){
+            ResultSet rs = ms.get_resultset();
+
+            if(rs.next()) new Compositor(rs);
+            return null;
+        }
+    }
+
+    public ArrayList<Playlist> mostrarPlaylistConcertoBarroco() throws SQLException{
+        ArrayList<Playlist> playlists = new ArrayList<Playlist>();
+
+        String sql = "SELECT * FROM mostrarPlaylistConcertoBarroco";
+        try(ManagedStatement ms = new ManagedStatement(url, sql)){
+            ResultSet rs = ms.get_resultset();
+
+            while(rs.next()){
+                playlists.add(new Playlist(rs));
+            }
+        }
+
+        return playlists;
     }
 }
