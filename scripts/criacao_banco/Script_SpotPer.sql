@@ -60,11 +60,6 @@ CREATE TABLE faixa (
 	descricao varchar(256) NOT NULL,
 	tipo_grav varchar(3),
 	tipo_comp int REFERENCES tipo_composicao (cod)
-
-	-- "Defina um índice primário para a tabela de Faixas sobre o atributo código do
-	-- álbum. Defina um índice secundário para a mesma tabela sobre o atributo tipo de
-	-- composição. Os dois com taxas de preenchimento máxima"
-	--PRIMARY KEY (cod, pos_album, disco)
 );
 
 -- Tabelas auxiliares
