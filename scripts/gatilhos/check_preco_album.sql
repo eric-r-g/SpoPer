@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION check_preco_album() RETURNS TRIGGER AS $check_preco_album$
+CREATE OR REPLACE FUNCTION check_preco_album() RETURNS TRIGGER AS $$
 DECLARE
 	media_preco int;
 BEGIN
@@ -19,7 +19,7 @@ BEGIN
 
 	RETURN NEW;
 END
-$check_preco_album$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 
 CREATE OR REPLACE TRIGGER check_preco_album

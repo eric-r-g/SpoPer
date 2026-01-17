@@ -95,65 +95,65 @@ INSERT INTO tipo_composicao VALUES (3, 'Descrição Outros');
 --...........................(cod, nome, pos_album, disco, descricao, tipo_grav, tipo_comp)
 INSERT INTO faixa VALUES (0, 'faixa teste', 0, 0, 'Descrição da faixa Teste', 'ADD', 3);
 INSERT INTO faixa VALUES (1, 'faixa classica 01', 0, 1, 'Descrição da faixa Clássica01', NULL, 0);
-INSERT INTO faixa VALUES (2, 'faixa classica 02', 0, 1, 'Descrição da faixa Clássica02', NULL, 2);
+INSERT INTO faixa VALUES (2, 'faixa classica 02', 1, 1, 'Descrição da faixa Clássica02', NULL, 2);
 INSERT INTO faixa VALUES (3, 'faixa geese 01', 0, 2, 'Descrição da faixa Geese01', NULL, 3);
-INSERT INTO faixa VALUES (4, 'faixa geese 02', 0, 3, 'Descrição da faixa Geese02', 'DDD', 3);
-INSERT INTO faixa VALUES (5, 'faixa geese 03', 0, 3, 'Descrição da faixa Geese03', 'DDD', 3);
+INSERT INTO faixa VALUES (4, 'faixa geese 02', 1, 3, 'Descrição da faixa Geese02', 'DDD', 3);
+INSERT INTO faixa VALUES (5, 'faixa geese 03', 2, 3, 'Descrição da faixa Geese03', 'DDD', 3);
 INSERT INTO faixa VALUES (6, 'faixa beatles 01', 0, 4, 'Descrição da faixa Beatles01', NULL, 3);
-INSERT INTO faixa VALUES (7, 'faixa beatles 02', 0, 4, 'Descrição da faixa Beatles02', NULL, 3);
+INSERT INTO faixa VALUES (7, 'faixa beatles 02', 1, 4, 'Descrição da faixa Beatles02', NULL, 3);
 INSERT INTO faixa VALUES (8, 'faixa mpb01', 0, 5, 'Descrição da faixa MPB01', 'ADD', 3);
-INSERT INTO faixa VALUES (9, 'faixa mpb02', 0, 5, 'Descrição da faixa MPB02', 'DDD', 3);
+INSERT INTO faixa VALUES (9, 'faixa mpb02', 1, 5, 'Descrição da faixa MPB02', 'DDD', 3);
 
 --SELECT * FROM faixa
 
 -- Playlist Contem
 -- Dá pra inicializar com ult_data_tocada e numero tocado diferente se quiser
---...........................(cod, playlist, faixa, ult_data_tocada, numero_tocada)
-INSERT INTO playlist_contem VALUES (0, 0, 0, NULL, 0);
-INSERT INTO playlist_contem VALUES (1, 1, 3, NULL, 0);
-INSERT INTO playlist_contem VALUES (2, 1, 4, NULL, 0);
-INSERT INTO playlist_contem VALUES (3, 1, 5, NULL, 0);
-INSERT INTO playlist_contem VALUES (4, 1, 9, NULL, 0);
-INSERT INTO playlist_contem VALUES (5, 2, 8, NULL, 0);
-INSERT INTO playlist_contem VALUES (6, 2, 9, NULL, 0);
-INSERT INTO playlist_contem VALUES (7, 2, 1, NULL, 0);
-INSERT INTO playlist_contem VALUES (8, 2, 2, NULL, 0);
-INSERT INTO playlist_contem VALUES (9, 2, 6, NULL, 0);
+--...........................(playlist, faixa, ult_data_tocada, numero_tocada)
+INSERT INTO playlist_contem VALUES (0, 0, NULL, 0);
+INSERT INTO playlist_contem VALUES (1, 3, NULL, 0);
+INSERT INTO playlist_contem VALUES (1, 4, NULL, 0);
+INSERT INTO playlist_contem VALUES (1, 5, NULL, 0);
+INSERT INTO playlist_contem VALUES (1, 9, NULL, 0);
+INSERT INTO playlist_contem VALUES (2, 8, NULL, 0);
+INSERT INTO playlist_contem VALUES (2, 9, NULL, 0);
+INSERT INTO playlist_contem VALUES (2, 1, NULL, 0);
+INSERT INTO playlist_contem VALUES (2, 2, NULL, 0);
+INSERT INTO playlist_contem VALUES (2, 6, NULL, 0);
 
 --SELECT * FROM playlist_contem
 
 -- Composição
---...........................(cod, compositor, faixa)
-INSERT INTO composicao VALUES (0, 0, 0);
-INSERT INTO composicao VALUES (1, 3, 1);
-INSERT INTO composicao VALUES (2, 3, 2);
-INSERT INTO composicao VALUES (3, 4, 1);
-INSERT INTO composicao VALUES (4, 6, 6);
-INSERT INTO composicao VALUES (5, 6, 7);
-INSERT INTO composicao VALUES (6, 2, 8);
-INSERT INTO composicao VALUES (7, 2, 9);
-INSERT INTO composicao VALUES (8, 7, 9);
-INSERT INTO composicao VALUES (9, 1, 4);
-INSERT INTO composicao VALUES (10, 1, 5);
-INSERT INTO composicao VALUES (11, 1, 6);
-INSERT INTO composicao VALUES (12, 8, 1);
-INSERT INTO composicao VALUES (13, 8, 2);
+--...........................(compositor, faixa)
+INSERT INTO composicao VALUES (0, 0);
+INSERT INTO composicao VALUES (3, 1);
+INSERT INTO composicao VALUES (3, 2);
+INSERT INTO composicao VALUES (4, 1);
+INSERT INTO composicao VALUES (6, 6);
+INSERT INTO composicao VALUES (6, 7);
+INSERT INTO composicao VALUES (2, 8);
+INSERT INTO composicao VALUES (2, 9);
+INSERT INTO composicao VALUES (7, 9);
+INSERT INTO composicao VALUES (1, 4);
+INSERT INTO composicao VALUES (1, 5);
+INSERT INTO composicao VALUES (1, 6);
+INSERT INTO composicao VALUES (8, 1);
+INSERT INTO composicao VALUES (8, 2);
 
 --SELECT * FROM composicao
 
 -- Interpretação
---...........................(cod, interprete, faixa)
-INSERT INTO interpretacao VALUES (0, 0, 0);
-INSERT INTO interpretacao VALUES (1, 7, 1);
-INSERT INTO interpretacao VALUES (2, 7, 2);
-INSERT INTO interpretacao VALUES (3, 1, 3);
-INSERT INTO interpretacao VALUES (4, 1, 4);
-INSERT INTO interpretacao VALUES (5, 1, 5);
-INSERT INTO interpretacao VALUES (6, 5, 6); -- O Evanescence tá tocando beatles, talvez isso seja confuso nos testes
-INSERT INTO interpretacao VALUES (7, 5, 7);
-INSERT INTO interpretacao VALUES (8, 3, 8);
-INSERT INTO interpretacao VALUES (9, 4, 8);
-INSERT INTO interpretacao VALUES (10, 3, 9);
-INSERT INTO interpretacao VALUES (11, 6, 9);
+--...........................(interprete, faixa)
+INSERT INTO interpretacao VALUES (0, 0);
+INSERT INTO interpretacao VALUES (7, 1);
+INSERT INTO interpretacao VALUES (7, 2);
+INSERT INTO interpretacao VALUES (1, 3);
+INSERT INTO interpretacao VALUES (1, 4);
+INSERT INTO interpretacao VALUES (1, 5);
+INSERT INTO interpretacao VALUES (5, 6); -- O Evanescence tá tocando beatles, talvez isso seja confuso nos testes
+INSERT INTO interpretacao VALUES (5, 7);
+INSERT INTO interpretacao VALUES (3, 8);
+INSERT INTO interpretacao VALUES (4, 8);
+INSERT INTO interpretacao VALUES (3, 9);
+INSERT INTO interpretacao VALUES (6, 9);
 
 --SELECT * FROM interpretacao
