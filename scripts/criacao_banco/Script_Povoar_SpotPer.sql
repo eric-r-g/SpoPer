@@ -57,7 +57,7 @@ INSERT INTO album VALUES (0, 'Album teste','Descrição do album teste', 0, 0.0,
 INSERT INTO album VALUES (1, 'Album MPB', 'Descrição do album MPB', 3, 150.25, DATE '23-09-1991', DATE '08-07-2007');
 INSERT INTO album VALUES (2, 'Album clássico', 'Descrição do album Clássico', 5, 300.0, DATE '06-07-1670', DATE '08-09-2016');
 INSERT INTO album VALUES (3, 'Album Geese', 'Descrição do album Geese', 1, 250.5, DATE '18-04-2025', DATE '11-09-2025');
-INSERT INTO album VALUES (4, 'Album raro dos Beatles', 'Descrição do album Raro do Beatles', 4, 5000.99, DATE '28-02-1971', DATE '05-04-2022');
+INSERT INTO album VALUES (4, 'Album raro dos Beatles', 'Descrição do album Raro do Beatles', 4, 2000.99, DATE '28-02-1971', DATE '05-04-2022');
 
 --SELECT * FROM album 
 
@@ -92,7 +92,7 @@ INSERT INTO tipo_composicao VALUES (3, 'Descrição Outros');
 
 -- Faixa
 -- Tou desconsiderando pos_album por enquanto, discutir isso depois, junto com o bgl da chave primaria
---...........................(cod, nome, pos_album, disco, descricao, tipo_grav, tipo_compr)
+--...........................(cod, nome, pos_album, disco, descricao, tipo_grav, tipo_comp)
 INSERT INTO faixa VALUES (0, 'faixa teste', 0, 0, 'Descrição da faixa Teste', 'ADD', 3);
 INSERT INTO faixa VALUES (1, 'faixa classica 01', 0, 1, 'Descrição da faixa Clássica01', NULL, 0);
 INSERT INTO faixa VALUES (2, 'faixa classica 02', 0, 1, 'Descrição da faixa Clássica02', NULL, 2);
