@@ -206,7 +206,7 @@ public class Database{
         try(ManagedStatement ms = new ManagedStatement(url, sql)){
             ResultSet rs = ms.get_resultset();
 
-            if(rs.next()) new Gravadora(rs);
+            if(rs.next()) return new Gravadora(rs);
             return null;
         }
     }
@@ -216,7 +216,7 @@ public class Database{
         try(ManagedStatement ms = new ManagedStatement(url, sql)){
             ResultSet rs = ms.get_resultset();
 
-            if(rs.next()) new Compositor(rs);
+            if(rs.next()) return new Compositor(rs);
             return null;
         }
     }

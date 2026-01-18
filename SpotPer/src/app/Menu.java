@@ -22,7 +22,7 @@ public class Menu {
 	public void janelaMenu() {
 		int op;
 		do {
-			System.out.println("\n=== MENU ===");
+			System.out.println("\n========== MENU ==========");
             System.out.println("1 - Criar playlist");
             System.out.println("2 - Manutação de playlist");
             System.out.println("3 - Executar consultas");

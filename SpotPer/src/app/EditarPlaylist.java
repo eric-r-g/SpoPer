@@ -133,7 +133,7 @@ public class EditarPlaylist {
 			
 			if(faixas_playlist.contains(ind)) {
 				
-				db.removerFaixaPlaylist(ind, cod);
+				db.removerFaixaPlaylist(cod, ind);
 				System.out.println("Faixa removida com sucesso");
 				faixas_playlist.remove(ind);
 			} else {
