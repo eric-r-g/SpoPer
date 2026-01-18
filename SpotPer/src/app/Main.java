@@ -8,11 +8,13 @@ public class Main {
 	private static Database db = new Database();
 	private static Menu menu;
 	private static CriarPlaylist cp;
+	private static ExecutarConsulta ec;
 	
 
     public static void main(String[] args) {
     	cp = new CriarPlaylist(sc, db);
-    	menu = new Menu(sc, cp);
+    	ec = new ExecutarConsulta(sc, db);
+    	menu = new Menu(sc, cp, ec);
     	menu.janelaMenu();
     }
 }

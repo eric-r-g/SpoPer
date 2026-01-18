@@ -7,10 +7,12 @@ import database.Database;
 public class Menu {
 	private static Scanner sc;
 	private static CriarPlaylist criar;
+	private static ExecutarConsulta ec;
 	
-	public Menu(Scanner scanner, CriarPlaylist cp) {
+	public Menu(Scanner scanner, CriarPlaylist cp, ExecutarConsulta exec) {
 		sc = scanner;
 		criar = cp;
+		ec = exec;
 	}
 	
 	
@@ -31,7 +33,7 @@ public class Menu {
             	case 0 -> System.out.println("Saindo...");
             	case 1 -> criar.janelaCriar();
             	case 2 -> sc.next(); //ToDo: outra janela
-            	case 3 -> sc.next(); //ToDo: outra janela
+            	case 3 -> ec.janelaConsulta();
             	default -> System.out.println("Opção invalida, digite uma operação valida.");
             }
             

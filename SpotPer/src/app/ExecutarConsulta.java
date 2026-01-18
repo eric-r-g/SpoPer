@@ -1,10 +1,15 @@
 package app;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 import database.Database;
+import database.DBTypes.Album;
+import database.DBTypes.Compositor;
+import database.DBTypes.Gravadora;
 
 public class ExecutarConsulta {
 	Scanner sc;
@@ -21,8 +26,8 @@ public class ExecutarConsulta {
 		
 		do {
 			System.out.println("Digite a proxima consulta");
-			System.out.println("1 - incluir faixa");
-			System.out.println("2 - remover faixa");
+			System.out.println("1 - albuns com preco de compra maior que a media");
+			System.out.println("2 - gravadora com maior numero de playlist com dvorack");
 			System.out.println("3 - alterar nome");
 			System.out.println("4 - terminar criação");
 			System.out.println("0 - voltar para menu");
@@ -43,15 +48,41 @@ public class ExecutarConsulta {
 	}
 	
 	private void consultaAlbunsComPrecoMaiorMedia() {
-		
+		try {
+			ArrayList<Album> albuns = db.mostrarAlbunsPrecoMaiorMedia();
+			
+			System.out.println("-- Resultado da consulta--");
+			for (Album a : albuns) {
+				System.out.println(a.cod + " | nome - " + a.nome + " | " + a.preco_cmpr);
+			}
+			System.out.println("--------------------------");
+		} catch (SQLException e) {
+			System.out.println("Erro na execução da consulta: " + e);
+		}
 	}
 	
 	private void consultaGravMaisDvorack() {
+		try {
+			Gravadora g = db.mostrarGravMaisDvorak();
 		
+			System.out.println("-- Resultado da consulta--");
+			System.out.println(g.cod + " | nome - " + g.nome + " | " + g.endereco);
+			System.out.println("--------------------------");
+		} catch (SQLException e) {
+			System.out.println("Erro na execução da consulta: " + e);
+		}
 	}
 	
 	private void consultaCompMaisPlaylist() {
+		try {
+			Compositor c = db.mostrarCompMaisPlaylists();
 		
+			System.out.println("-- Resultado da consulta--");
+			System.out.println(c.cod + " | nome - " +  c.nome + " | " + c.periodo_music);
+			System.out.println("--------------------------");
+		} catch (SQLException e) {
+			System.out.println("Erro na execução da consulta: " + e);
+		}
 	}
 	
 	private void consultaPlaylistConcertoBarroco() {
