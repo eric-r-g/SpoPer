@@ -13,11 +13,11 @@ public class Compositor {
     public String periodo_music; // Nome do periodo; não a chave
 
     public Compositor(ResultSet rs) throws SQLException{
-        cod = rs.getInt(0);
-        nome = rs.getString(1);
-        local_nasc = rs.getString(2);
-        data_nasc = LocalDate.parse(rs.getString(3));
-        data_morte = LocalDate.parse(rs.getString(4));
-        periodo_music = rs.getString(5);
+        cod = rs.getInt(1);
+        nome = rs.getString(2);
+        local_nasc = rs.getString(3);
+        data_nasc = LocalDate.parse(rs.getString(4));
+        data_morte = LocalDate.parse(rs.getString(5));
+        periodo_music = rs.getString(6);
     }
 }

@@ -14,12 +14,12 @@ public class Album {
     public LocalDate data_grav;
 
     public Album(ResultSet rs) throws SQLException{
-        cod = rs.getInt(0);
-        nome = rs.getString(1);
-        descricao = rs.getString(2);
-        gravadora = rs.getString(3);
-        preco_cmpr = rs.getFloat(4);
-        data_cmpr = LocalDate.parse(rs.getString(5));
-        data_grav = LocalDate.parse(rs.getString(6));
+        cod = rs.getInt(1);
+        nome = rs.getString(2);
+        descricao = rs.getString(3);
+        gravadora = rs.getString(4);
+        preco_cmpr = rs.getFloat(5);
+        data_cmpr = LocalDate.parse(rs.getString(6));
+        data_grav = LocalDate.parse(rs.getString(7));
     }
 }

@@ -13,12 +13,12 @@ public class Faixa {
     public String tipo_comp; // descrição do tipo; não a chave
 
     public Faixa(ResultSet rs) throws SQLException{
-        cod = rs.getInt(0);
-        nome = rs.getString(1);
-        pos_album = rs.getInt(2);
-        album = rs.getString(3);
-        descricao = rs.getString(4);
-        tipo_grav = rs.getString(5);
-        tipo_comp = rs.getString(6);
+        cod = rs.getInt(1);
+        nome = rs.getString(2);
+        pos_album = rs.getInt(3);
+        album = rs.getString(4);
+        descricao = rs.getString(5);
+        tipo_grav = rs.getString(6);
+        tipo_comp = rs.getString(7);
     }
 }

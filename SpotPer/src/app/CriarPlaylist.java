@@ -1,11 +1,16 @@
 package app;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 import database.*;
+import database.DBTypes.Album;
+import database.DBTypes.Faixa;
+import database.DBTypes.Playlist;
 
 public class CriarPlaylist {
 	Scanner sc;
@@ -23,8 +28,9 @@ public class CriarPlaylist {
 		System.out.print("> ");
 		
 		String nome = sc.nextLine();
-		sc.nextLine();
-		Set <Integer> faixas = new HashSet <Integer>(); 
+		
+		Set <Integer> faixas_playlist = new HashSet <Integer>(); 
+		
 		
 		do {
 			System.out.println("Digite a proxima operecao");
@@ -40,35 +46,109 @@ public class CriarPlaylist {
 	        
 	        switch(op) {
 	        	case 0 -> System.out.println("Voltando...");
-	        	case 1 -> incluirFaixa();
-	        	case 2 -> removerFaixa();
-	        	case 3 -> alterarNome();
-	        	case 4 -> terminarPlaylist();
+	        	case 1 -> incluirFaixa(faixas_playlist);
+	        	case 2 -> removerFaixa(faixas_playlist);
+	        	case 3 -> alterarNome(nome);
+	        	case 4 -> terminarPlaylist(nome, faixas_playlist);
 	        	default -> System.out.println("Opção invalida, digite uma operação valida.");
 	        }
-		} while (op != 0 || op != 4);
+		} while (op != 0 && op != 4);
 	}
 	
-	public void incluirFaixa() {
-		ArrayList<Album> albuns = new ArrayList <Album> ();
-		
-		System.out.println("Escolha um album que deseja adicionar (digite o codigo)");
+	public void incluirFaixa(Set <Integer> faixas_playlist) {
+		try {
+			ArrayList<Album> albuns = db.mostrarAlbuns();
+			
+			for(Album a : albuns) {
+				System.out.println(a.cod + " | nome - " + a.nome + " | " + a.descricao);
+			}
+			
+			System.out.println("Escolha um album para olhar as faixas (digite o codigo)");
+			System.out.print("> ");
+			
+			int ind_p = sc.nextInt();
+			sc.nextLine();
+			
+			ArrayList <Faixa> faixas = db.mostrarFaixasAlbum(ind_p);
+			
+			for(Faixa f : faixas) {
+				String escol;
+				if (faixas_playlist.contains(f.cod)) {
+					escol = "[X]";
+				} else {
+					escol = "[ ]";
+				}
+				System.out.println(f.cod + " | " + escol + " | nome - " + f.nome + " | " + f.descricao);
+			}
+			
+			System.out.println("Escolha uma faixa não escolhida para adicionar a playlist (digite o codigo)");
+			System.out.print("> ");
+			
+			int ind_f = sc.nextInt();
+			sc.nextLine();
+			
+			if (faixas_playlist.contains(ind_f)) {
+				//ToDo: mecanismo para verificar se o codigo existe.
+				System.out.println("Faixa já escolhida, digite um valor valido");
+			} else {
+				System.out.println("Faixa Adicionada com sucesso");
+				faixas_playlist.add(ind_f);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro na inclusao de faixa: " + e);
+		}
+	}
+	
+	
+	public void removerFaixa(Set <Integer> faixas_playlist) {
+		try {
+			ArrayList <Faixa> faixas = db.mostrarFaixas();
+			for(Faixa f : faixas) {
+				if (faixas_playlist.contains(f.cod)) {
+					System.out.println(f.cod + " | nome - " + f.nome + " | " + f.descricao);
+				}
+			}
+			
+			System.out.println("Escolha uma faixa para remover da playlist (digite o codigo)");
+			System.out.print("> ");
+			
+			int ind = sc.nextInt();
+			sc.nextLine();
+			
+			if(faixas_playlist.contains(ind)) {
+				System.out.println("Faixa removida com sucesso");
+				faixas_playlist.remove(ind);
+			} else {
+				System.out.println("Digite uma faixa válida");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(" Erro na remocao de faixa: " + e);
+		}
+	}
+	
+	private void alterarNome(String nome) {
+		System.out.println("Digite o novo nome da playlist");
 		System.out.print("> ");
-	}
-	
-	public void removerFaixa() {
-		//ToDo: funcao
-	}
-	
-	private void alterarNome() {
-		System.out.println("Digite o novSo nome da playlist");
-		System.out.print("> ");
 		
-		String nome = sc.nextLine();
-		sc.nextLine();
+		nome = sc.nextLine();
 	}
 	
-	public void terminarPlaylist() {
-		//ToDo: funcao
+	public void terminarPlaylist(String nome, Set <Integer> faixas_playlist) {
+		if (faixas_playlist.size() == 0) {
+			System.out.println("Não é possivel criar uma playlist vazia.");
+		}
+		else {
+			try {
+				ArrayList <Playlist> playlists = db.mostrarPlaylists();
+				playlists.sort(Comparator.comparingInt(Playlist::getCod));
+				int ind = playlists.get(playlists.size() - 1).cod + 1;
+				
+				db.criarPlaylist(nome, ind, faixas_playlist);
+				System.out.println("Playlist incluida com sucesso.");
+			} catch (SQLException e) {
+				System.out.println(" Erro na inclusão da playlist: " + e);
+			}
+		}
 	}
 }

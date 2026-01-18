@@ -53,6 +53,25 @@ public class Database{
 
         return playlists;
     }
+    
+    public static ArrayList<Faixa> mostrarFaixas() throws SQLException{
+        ArrayList<Faixa> faixas = new ArrayList<Faixa>();
+
+        String sql = """
+            SELECT *
+            FROM faixa;
+        """;
+
+        try(ManagedStatement ms = new ManagedStatement(url, sql)){
+            ResultSet rs = ms.get_resultset();
+
+            while(rs.next()){
+                faixas.add(new Faixa(rs));
+            }
+        }
+
+        return faixas;
+    }
 
     public ArrayList<Faixa> mostrarFaixasPlaylist(int cod) throws SQLException{
         ArrayList<Faixa> faixas = new ArrayList<Faixa>();
@@ -67,7 +86,30 @@ public class Database{
         try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
             PreparedStatement pst = mps.get_preparedstatement();
 
-            pst.setInt(0, cod);
+            pst.setInt(1, cod);
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()){
+                faixas.add(new Faixa(rs));
+            }
+        }
+
+        return faixas;
+    }
+    
+    public ArrayList<Faixa> mostrarFaixasAlbum(int cod) throws SQLException{
+        ArrayList<Faixa> faixas = new ArrayList<Faixa>();
+
+        String sql = """
+                SELECT f.cod, f.nome, f.pos_album, a.nome, f.descricao, f.tipo_grav, tc.descricao_comp
+                FROM faixa f, meio_fisico m, album a, tipo_composicao tc
+                WHERE a.cod = ? AND f.disco = m.cod AND m.album = a.cod AND f.tipo_comp = tc.cod;
+            """;
+
+        try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
+            PreparedStatement pst = mps.get_preparedstatement();
+
+            pst.setInt(1, cod);
             ResultSet rs = pst.executeQuery();
 
             while(rs.next()){
@@ -80,17 +122,17 @@ public class Database{
 
     public static void criarPlaylist(String nome, int cod, Set<Integer> faixas) throws SQLException{
         String sql = """
-            INSERT INTO playlist VALUES (?, ?, DATE ?, ?);
+            INSERT INTO playlist VALUES (?, ?, ?, ?);
         """;
 
         try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
             PreparedStatement pst = mps.get_preparedstatement();
 
-            pst.setInt(0, cod);
-            pst.setString(1, nome);
-            pst.setString(2, LocalDate.now().toString());
+            pst.setInt(1, cod);
+            pst.setString(2, nome);
+            pst.setObject(3, LocalDate.now());
             // Tempo total tá aleatorizado baseado na quantidade de faixas
-            pst.setInt(3, new Random().nextInt(10)*faixas.size());
+            pst.setInt(4, new Random().nextInt(10)*faixas.size());
 
             pst.executeUpdate();
             pst.close();
@@ -104,8 +146,8 @@ public class Database{
             PreparedStatement pst = mps.get_preparedstatement();
 
             for(Integer faixa : faixas){
-                pst.setInt(0, cod);
-                pst.setInt(1, faixa);
+                pst.setInt(1, cod);
+                pst.setInt(2, faixa);
 
                 pst.executeUpdate();
             }
@@ -121,8 +163,8 @@ public class Database{
         try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
             PreparedStatement pst = mps.get_preparedstatement();
 
-            pst.setInt(0, playlist);
-            pst.setInt(1, faixa);
+            pst.setInt(1, playlist);
+            pst.setInt(2, faixa);
 
             pst.executeUpdate();
         }
@@ -137,8 +179,8 @@ public class Database{
         try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
             PreparedStatement pst = mps.get_preparedstatement();
         
-            pst.setInt(0, playlist);
-            pst.setInt(1, faixa);
+            pst.setInt(1, playlist);
+            pst.setInt(2, faixa);
 
             pst.executeUpdate();
         }

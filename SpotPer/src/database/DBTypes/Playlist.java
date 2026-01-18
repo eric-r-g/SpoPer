@@ -11,9 +11,12 @@ public class Playlist {
     public int tempo_total;
 
     public Playlist(ResultSet rs) throws SQLException{
-        cod = rs.getInt(0);
-        nome = rs.getString(1);
-        data_criacao = LocalDate.parse(rs.getString(2));
-        tempo_total = rs.getInt(3);
+        cod = rs.getInt(1);
+        nome = rs.getString(2);
+        data_criacao = LocalDate.parse(rs.getString(3));
+        tempo_total = rs.getInt(4);
     }
+    
+    // Necessario para ordenação
+    public int getCod() { return cod; }
 }
