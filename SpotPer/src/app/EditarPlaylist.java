@@ -107,7 +107,7 @@ public class EditarPlaylist {
 			} else if (!faixas_possiveis.contains(ind_f)){
 				System.out.println("Faixa inexistente, digite um valor valido");
 			} else {
-				db.inserirFaixaPlaylist(ind_f, cod);
+				db.inserirFaixaPlaylist(cod, ind_f);
 				System.out.println("Faixa Adicionada com sucesso");
 				faixas_playlist.add(ind_f);
 			}
