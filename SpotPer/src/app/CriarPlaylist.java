@@ -71,7 +71,10 @@ public class CriarPlaylist {
 			
 			ArrayList <Faixa> faixas = db.mostrarFaixasAlbum(ind_p);
 			
+			
+			Set <Integer> faixas_possiveis = new HashSet <Integer>();
 			for(Faixa f : faixas) {
+				faixas_possiveis.add(f.cod);
 				String escol;
 				if (faixas_playlist.contains(f.cod)) {
 					escol = "[X]";
@@ -88,8 +91,9 @@ public class CriarPlaylist {
 			sc.nextLine();
 			
 			if (faixas_playlist.contains(ind_f)) {
-				//ToDo: mecanismo para verificar se o codigo existe.
 				System.out.println("Faixa já escolhida, digite um valor valido");
+			} else if (!faixas_possiveis.contains(ind_f)){
+				System.out.println("Faixa inexistente, digite um valor valido");
 			} else {
 				System.out.println("Faixa Adicionada com sucesso");
 				faixas_playlist.add(ind_f);

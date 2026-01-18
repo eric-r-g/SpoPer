@@ -7,12 +7,15 @@ import database.Database;
 public class Menu {
 	private static Scanner sc;
 	private static CriarPlaylist criar;
-	private static ExecutarConsulta ec;
+	private static EditarPlaylist editar;
+	private static ExecutarConsulta executar;
 	
-	public Menu(Scanner scanner, CriarPlaylist cp, ExecutarConsulta exec) {
+	
+	public Menu(Scanner scanner, CriarPlaylist cp, EditarPlaylist ed, ExecutarConsulta exec) {
 		sc = scanner;
 		criar = cp;
-		ec = exec;
+		editar = ed;
+		executar = exec;
 	}
 	
 	
@@ -32,8 +35,8 @@ public class Menu {
             switch(op) {
             	case 0 -> System.out.println("Saindo...");
             	case 1 -> criar.janelaCriar();
-            	case 2 -> sc.next(); //ToDo: outra janela
-            	case 3 -> ec.janelaConsulta();
+            	case 2 -> editar.janelaEditar();
+            	case 3 -> executar.janelaConsulta();
             	default -> System.out.println("Opção invalida, digite uma operação valida.");
             }
             

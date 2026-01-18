@@ -173,7 +173,7 @@ public class Database{
     // TODO: Atualizar tempo total
     public static void removerFaixaPlaylist(int playlist, int faixa) throws SQLException{
         String sql = """
-            REMOVE FROM playlist_contem p WHERE p.playlist = ? AND p.faixa = ?;
+            DELETE FROM playlist_contem p WHERE p.playlist = ? AND p.faixa = ?;
         """;
 
         try(ManagedPreparedStatement mps = new ManagedPreparedStatement(url, sql)){
