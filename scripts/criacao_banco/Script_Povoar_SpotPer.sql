@@ -103,6 +103,7 @@ INSERT INTO faixa VALUES (6, 'faixa beatles 01', 0, 4, 'Descrição da faixa Bea
 INSERT INTO faixa VALUES (7, 'faixa beatles 02', 1, 4, 'Descrição da faixa Beatles02', NULL, 3);
 INSERT INTO faixa VALUES (8, 'faixa mpb01', 0, 5, 'Descrição da faixa MPB01', 'ADD', 3);
 INSERT INTO faixa VALUES (9, 'faixa mpb02', 1, 5, 'Descrição da faixa MPB02', 'DDD', 3);
+INSERT INTO faixa VALUES (10, 'faixa classica 03', 2, 1, 'Descrição da faixa Clássica 03', 'NULL', 1);
 
 --SELECT * FROM faixa
 
@@ -138,6 +139,7 @@ INSERT INTO composicao VALUES (1, 5);
 INSERT INTO composicao VALUES (1, 6);
 INSERT INTO composicao VALUES (8, 1);
 INSERT INTO composicao VALUES (8, 2);
+INSERT INTO composicao VALUES (3, 10);
 
 --SELECT * FROM composicao
 
