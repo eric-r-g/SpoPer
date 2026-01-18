@@ -212,7 +212,12 @@ public class Database{
     }
 
     public Compositor mostrarCompMaisPlaylists() throws SQLException{
-        String sql = "SELECT * FROM mostrarCompMaisPlaylists";
+        String sql = """
+            SELECT c.cod, c.nome, c.local_nasc, c.data_nasc, c.data_morte, p.nome
+            FROM mostrarCompMaisPlaylists c, periodo_musical p
+            WHERE c.periodo_music = c.cod
+        """;
+
         try(ManagedStatement ms = new ManagedStatement(url, sql)){
             ResultSet rs = ms.get_resultset();
 

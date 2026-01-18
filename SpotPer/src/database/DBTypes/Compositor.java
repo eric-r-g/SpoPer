@@ -17,7 +17,11 @@ public class Compositor {
         nome = rs.getString(2);
         local_nasc = rs.getString(3);
         data_nasc = LocalDate.parse(rs.getString(4));
-        data_morte = LocalDate.parse(rs.getString(5));
+        
+        String temp_mort = rs.getString(5);
+        if(temp_mort != null) data_morte = LocalDate.parse(temp_mort);
+        else data_morte = null;
+
         periodo_music = rs.getString(6);
     }
 }
