@@ -14,12 +14,10 @@ import database.DBTypes.Playlist;
 
 public class CriarPlaylist {
 	Scanner sc;
-	Database db;
 	int op;
 	
-	public CriarPlaylist(Scanner scanner, Database banco) {
+	public CriarPlaylist(Scanner scanner) {
 		sc = scanner;
-		db = banco;
 	}
 	
 	public void janelaCriar() {
@@ -33,12 +31,12 @@ public class CriarPlaylist {
 		
 		
 		do {
-			System.out.println("Digite a proxima operecao");
-			System.out.println("1 - incluir faixa");
-			System.out.println("2 - remover faixa");
-			System.out.println("3 - alterar nome");
-			System.out.println("4 - terminar criação");
-			System.out.println("0 - voltar para menu");
+			System.out.println("Digite a proxima operação");
+			System.out.println("1 - Incluir faixa");
+			System.out.println("2 - Remover faixa");
+			System.out.println("3 - Alterar nome");
+			System.out.println("4 - Terminar criação");
+			System.out.println("0 - Voltar para menu");
 	        System.out.print("> ");
 	        
 	        op = sc.nextInt();
@@ -50,26 +48,26 @@ public class CriarPlaylist {
 	        	case 2 -> removerFaixa(faixas_playlist);
 	        	case 3 -> alterarNome(nome);
 	        	case 4 -> terminarPlaylist(nome, faixas_playlist);
-	        	default -> System.out.println("Opção invalida, digite uma operação valida.");
+	        	default -> System.out.println("Opção inválida, digite uma operação válida.");
 	        }
 		} while (op != 0 && op != 4);
 	}
 	
 	public void incluirFaixa(Set <Integer> faixas_playlist) {
 		try {
-			ArrayList<Album> albuns = db.mostrarAlbuns();
+			ArrayList<Album> albuns = Database.mostrarAlbuns();
 			
 			for(Album a : albuns) {
 				System.out.println(a.cod + " | nome - " + a.nome + " | " + a.descricao);
 			}
 			
-			System.out.println("Escolha um album para olhar as faixas (digite o codigo)");
+			System.out.println("Escolha um album para olhar as faixas (digite o código)");
 			System.out.print("> ");
 			
 			int ind_p = sc.nextInt();
 			sc.nextLine();
 			
-			ArrayList <Faixa> faixas = db.mostrarFaixasAlbum(ind_p);
+			ArrayList <Faixa> faixas = Database.mostrarFaixasAlbum(ind_p);
 			
 			
 			Set <Integer> faixas_possiveis = new HashSet <Integer>();
@@ -84,36 +82,36 @@ public class CriarPlaylist {
 				System.out.println(f.cod + " | " + escol + " | nome - " + f.nome + " | " + f.descricao);
 			}
 			
-			System.out.println("Escolha uma faixa não escolhida para adicionar a playlist (digite o codigo)");
+			System.out.println("Escolha uma faixa não escolhida para adicionar a playlist (digite o código)");
 			System.out.print("> ");
 			
 			int ind_f = sc.nextInt();
 			sc.nextLine();
 			
 			if (faixas_playlist.contains(ind_f)) {
-				System.out.println("Faixa já escolhida, digite um valor valido");
+				System.out.println("Faixa já escolhida, digite um valor válido");
 			} else if (!faixas_possiveis.contains(ind_f)){
-				System.out.println("Faixa inexistente, digite um valor valido");
+				System.out.println("Faixa inexistente, digite um valor válido");
 			} else {
 				System.out.println("Faixa Adicionada com sucesso");
 				faixas_playlist.add(ind_f);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro na inclusao de faixa: " + e);
+			System.out.println("Erro na inclusão da faixa: " + e);
 		}
 	}
 	
 	
 	public void removerFaixa(Set <Integer> faixas_playlist) {
 		try {
-			ArrayList <Faixa> faixas = db.mostrarFaixas();
+			ArrayList <Faixa> faixas = Database.mostrarFaixas();
 			for(Faixa f : faixas) {
 				if (faixas_playlist.contains(f.cod)) {
 					System.out.println(f.cod + " | nome - " + f.nome + " | " + f.descricao);
 				}
 			}
 			
-			System.out.println("Escolha uma faixa para remover da playlist (digite o codigo)");
+			System.out.println("Escolha uma faixa para remover da playlist (digite o código)");
 			System.out.print("> ");
 			
 			int ind = sc.nextInt();
@@ -127,7 +125,7 @@ public class CriarPlaylist {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println(" Erro na remocao de faixa: " + e);
+			System.out.println("Erro na remocao da faixa: " + e);
 		}
 	}
 	
@@ -144,14 +142,14 @@ public class CriarPlaylist {
 		}
 		else {
 			try {
-				ArrayList <Playlist> playlists = db.mostrarPlaylists();
+				ArrayList <Playlist> playlists = Database.mostrarPlaylists();
 				playlists.sort(Comparator.comparingInt(Playlist::getCod));
 				int ind = playlists.get(playlists.size() - 1).cod + 1;
 				
-				db.criarPlaylist(nome, ind, faixas_playlist);
+				Database.criarPlaylist(nome, ind, faixas_playlist);
 				System.out.println("Playlist incluida com sucesso.");
 			} catch (SQLException e) {
-				System.out.println(" Erro na inclusão da playlist: " + e);
+				System.out.println("Erro na inclusão da playlist: " + e);
 			}
 		}
 	}

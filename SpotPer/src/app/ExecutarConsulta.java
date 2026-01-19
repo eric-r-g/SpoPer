@@ -2,9 +2,7 @@ package app;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 import database.Database;
 import database.DBTypes.Album;
@@ -14,24 +12,22 @@ import database.DBTypes.Playlist;
 
 public class ExecutarConsulta {
 	Scanner sc;
-	Database db;
 	int op;
 	
-	public ExecutarConsulta(Scanner scanner, Database banco) {
+	public ExecutarConsulta(Scanner scanner) {
 		sc = scanner;
-		db = banco;
 	}
 	
 	public void janelaConsulta() {
 		System.out.println("\n=== Executar Consulta ===");
 		
 		do {
-			System.out.println("Digite a proxima consulta");
-			System.out.println("1 - albuns com preco de compra maior que a media");
-			System.out.println("2 - gravadora com maior numero de playlist com dvorack");
-			System.out.println("3 - compositor com maior numero de faixas nas playlists");
-			System.out.println("4 - playlist com todas as faixas concerto e barroco");
-			System.out.println("0 - voltar para menu");
+			System.out.println("Digite a próxima consulta");
+			System.out.println("1 - Albuns com preço de compra maior que a média");
+			System.out.println("2 - Gravadora com maior numero de playlists com dvorack");
+			System.out.println("3 - Compositor com maior numero de faixas nas playlists");
+			System.out.println("4 - Playlist com todas as faixas concerto e barroco");
+			System.out.println("0 - Voltar para o menu");
 	        System.out.print("> ");
 	        
 	        op = sc.nextInt();
@@ -43,14 +39,14 @@ public class ExecutarConsulta {
 	        	case 2 -> consultaGravMaisDvorack();
 	        	case 3 -> consultaCompMaisPlaylist();
 	        	case 4 -> consultaPlaylistConcertoBarroco();
-	        	default -> System.out.println("Opção invalida, digite uma operação valida.");
+	        	default -> System.out.println("Opção inválida, digite uma operação válida.");
 	        }
 		} while (op != 0);
 	}
 	
 	private void consultaAlbunsComPrecoMaiorMedia() {
 		try {
-			ArrayList<Album> albuns = db.mostrarAlbunsPrecoMaiorMedia();
+			ArrayList<Album> albuns = Database.mostrarAlbunsPrecoMaiorMedia();
 			
 			System.out.println("-- Resultado da consulta- -");
 			for (Album a : albuns) {
@@ -64,7 +60,7 @@ public class ExecutarConsulta {
 	
 	private void consultaGravMaisDvorack() {
 		try {
-			Gravadora g = db.mostrarGravMaisDvorak();
+			Gravadora g = Database.mostrarGravMaisDvorak();
 		
 			System.out.println("-- Resultado da consulta --");
 			System.out.println(g.cod + " | nome - " + g.nome + " | " + g.endereco);
@@ -76,7 +72,7 @@ public class ExecutarConsulta {
 	
 	private void consultaCompMaisPlaylist() {
 		try {
-			Compositor c = db.mostrarCompMaisPlaylists();
+			Compositor c = Database.mostrarCompMaisPlaylists();
 		
 			System.out.println("-- Resultado da consulta --");
 			System.out.println(c.cod + " | nome - " +  c.nome + " | " + c.periodo_music);
@@ -88,7 +84,7 @@ public class ExecutarConsulta {
 	
 	private void consultaPlaylistConcertoBarroco() {
 		try {
-			ArrayList <Playlist> playlists = db.mostrarPlaylistConcertoBarroco();
+			ArrayList <Playlist> playlists = Database.mostrarPlaylistConcertoBarroco();
 			System.out.println("-- Resultado da consulta --");
 			for (Playlist p : playlists) {
 				System.out.println(p.cod + " | nome - " + p.nome + " | " + p.tempo_total);

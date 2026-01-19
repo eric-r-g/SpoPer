@@ -2,8 +2,6 @@ package app;
 
 import java.util.Scanner;
 
-import database.Database;
-
 public class Menu {
 	private static Scanner sc;
 	private static CriarPlaylist criar;
@@ -24,7 +22,7 @@ public class Menu {
 		do {
 			System.out.println("\n========== MENU ==========");
             System.out.println("1 - Criar playlist");
-            System.out.println("2 - Manutação de playlist");
+            System.out.println("2 - Manutenção de playlist");
             System.out.println("3 - Executar consultas");
             System.out.println("0 - Sair");
             System.out.print("> ");
@@ -37,7 +35,7 @@ public class Menu {
             	case 1 -> criar.janelaCriar();
             	case 2 -> editar.janelaEditar();
             	case 3 -> executar.janelaConsulta();
-            	default -> System.out.println("Opção invalida, digite uma operação valida.");
+            	default -> System.out.println("Opção inválida, digite uma operação válida.");
             }
             
             

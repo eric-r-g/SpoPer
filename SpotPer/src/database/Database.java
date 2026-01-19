@@ -73,7 +73,7 @@ public class Database{
         return faixas;
     }
 
-    public ArrayList<Faixa> mostrarFaixasPlaylist(int cod) throws SQLException{
+    public static ArrayList<Faixa> mostrarFaixasPlaylist(int cod) throws SQLException{
         ArrayList<Faixa> faixas = new ArrayList<Faixa>();
 
         // Fazer consultas diferentes pra esses atributos separados seria melhor será?
@@ -97,7 +97,7 @@ public class Database{
         return faixas;
     }
     
-    public ArrayList<Faixa> mostrarFaixasAlbum(int cod) throws SQLException{
+    public static ArrayList<Faixa> mostrarFaixasAlbum(int cod) throws SQLException{
         ArrayList<Faixa> faixas = new ArrayList<Faixa>();
 
         String sql = """
@@ -154,7 +154,6 @@ public class Database{
         }
     }
 
-    // TODO: Atualizar tempo total
     public static void inserirFaixaPlaylist(int playlist, int faixa) throws SQLException{
         String sql = """
             INSERT INTO playlist_contem VALUES (?, ?, NULL, 0);
@@ -170,7 +169,6 @@ public class Database{
         }
     }
 
-    // TODO: Atualizar tempo total
     public static void removerFaixaPlaylist(int playlist, int faixa) throws SQLException{
         String sql = """
             DELETE FROM playlist_contem p WHERE p.playlist = ? AND p.faixa = ?;
@@ -201,7 +199,7 @@ public class Database{
         return albuns;
     }
 
-    public Gravadora mostrarGravMaisDvorak() throws SQLException{
+    public static Gravadora mostrarGravMaisDvorak() throws SQLException{
         String sql = "SELECT * FROM mostrarGravMaisDvorak";
         try(ManagedStatement ms = new ManagedStatement(url, sql)){
             ResultSet rs = ms.get_resultset();
@@ -211,7 +209,7 @@ public class Database{
         }
     }
 
-    public Compositor mostrarCompMaisPlaylists() throws SQLException{
+    public static Compositor mostrarCompMaisPlaylists() throws SQLException{
         String sql = """
             SELECT c.cod, c.nome, c.local_nasc, c.data_nasc, c.data_morte, p.nome
             FROM mostrarCompMaisPlaylists c, periodo_musical p
@@ -226,7 +224,7 @@ public class Database{
         }
     }
 
-    public ArrayList<Playlist> mostrarPlaylistConcertoBarroco() throws SQLException{
+    public static ArrayList<Playlist> mostrarPlaylistConcertoBarroco() throws SQLException{
         ArrayList<Playlist> playlists = new ArrayList<Playlist>();
 
         String sql = "SELECT * FROM mostrarPlaylistConcertoBarroco";
