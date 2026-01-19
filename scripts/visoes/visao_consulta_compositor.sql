@@ -1,14 +1,17 @@
--- Peguei a sem repetições
+-- Sem repetições
 CREATE VIEW mostrarCompMaisPlaylists AS
-    select *
+    select c.nome
     from compositor c
     where
-        -- sub consulta para saber quantas musicas aquele compositor tem
         (select count(DISTINCT f.cod) 
-        from compositor c1, composicao co, faixa f, playlist_contem pc
-        where c1.cod = co.compositor and f.cod = co.faixa and f.cod = pc.faixa and c.cod = c1.cod) >= all
-        -- sub consulta para saber quantas musicas todos os compositor tem
+        from compositor c1
+        INNER JOIN composicao co on c1.cod = co.compositor
+        INNER JOIN faixa f on f.cod = co.faixa
+        INNER JOIN playlist_contem pc on f.cod = pc.faixa
+        where c.cod = c1.cod) >= all 
         (select count(DISTINCT f.cod) 
-        from compositor c1, composicao co, faixa f, playlist_contem pc
-        where c1.cod = co.compositor and f.cod = co.faixa and f.cod = pc.faixa
-        group by c1.cod);
+        from compositor c1
+        INNER JOIN composicao co on c1.cod = co.compositor
+        INNER JOIN faixa f on f.cod = co.faixa
+        INNER JOIN playlist_contem pc on f.cod = pc.faixa
+        GROUP BY c1.cod)

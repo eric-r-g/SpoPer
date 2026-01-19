@@ -1,7 +1,6 @@
 package app;
 
 import java.util.Scanner;
-import database.*;
 
 public class Main {
 	private static Scanner sc = new Scanner(System.in);

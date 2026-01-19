@@ -56,7 +56,7 @@ CREATE TABLE faixa (
 	cod int PRIMARY KEY,
     nome varchar(64) NOT NULL,
 	pos_album int NOT NULL,
-	disco int REFERENCES meio_fisico (cod) ON DELETE CASCADE, -- Talvez mudar o nome dessa coluna
+	disco int REFERENCES meio_fisico (cod) ON DELETE CASCADE, 
 	descricao varchar(256) NOT NULL,
 	tipo_grav varchar(3),
 	tipo_comp int REFERENCES tipo_composicao (cod)

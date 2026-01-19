@@ -1,6 +1,9 @@
---É necessário rodar cada um desse comandos de forma separada.
+-- É necessário rodar cada um desse comandos de forma separada.
+-- Cada  caminho de criação deve ser absoluto e ter as devidas permissões
+-- Por fim, é necessário já existe as pastas devidas.
+
 CREATE TABLESPACE ts_primary
-LOCATION '/dados/primary'; --aqui é o caminho absoluto, então falta o inicio
+LOCATION '/dados/primary'; 
 
 CREATE TABLESPACE ts_one
 LOCATION '/dados/tsOne';

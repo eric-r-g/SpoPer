@@ -2,6 +2,10 @@ select *
     from playlist p
     where not exists (
         select *
-        from faixa f, composicao co, compositor c, periodo_musical pm, playlist_contem pc
-        where pc.playlist = p.cod and pc.faixa = f.cod and co.faixa = f.cod and co.compositor = c.cod and c.periodo_music = pm.cod 
+        from faixa f
+		INNER JOIN composicao co on co.faixa = f.cod
+		INNER JOIN compositor c on co.compositor = c.cod 
+		INNER JOIN periodo_musical pm on c.periodo_music = pm.cod 
+		INNER JOIN playlist_contem pc on pc.faixa = f.cod
+        where pc.playlist = p.cod 
         and (pm.nome != 'Periodo barroco' OR f.tipo_comp != 1)) -- 1 -> Concerto
